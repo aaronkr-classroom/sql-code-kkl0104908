@@ -71,21 +71,24 @@ JOIN course c ON sc.course_id = c.id;
 SELECT s.first_name, s.last_name
 FROM student s
 JOIN student_course sc ON s.id = sc.student_id
-WHERE sc.course_id = 1;
+JOIN course c ON sc.course_id = c.id
+WHERE c.name = 'Database design';
 
 ---2)Taylah Brooker가 가르친 모든 과정을 표시합니다.
-SELECT c.name
+SELECT c.name AS course_name
 FROM course c
 JOIN teacher t ON c.teacher_id = t.id
-WHERE t.first_name = 'Taylah' AND t.last_name = 'Brooker';
+WHERE t.first_name = 'Taylah' AND t.last_name = 'Booker';
 
 ---3)성이 "B"로 시작하는 모든 학생과 교사를 표시합니다.
-SELECT 'Student' AS role, first_name, last_name
-FROM student
-WHERE last_name LIKE 'B%'
+---- 성이 "B"로 시작하는 모든 학생
+SELECT 'Student' AS role, s.first_name, s.last_name
+FROM student s
+WHERE s.last_name LIKE 'B%'
 
-UNION ALL
+UNION
 
-SELECT 'Teacher' AS role, first_name, last_name
-FROM teacher
-WHERE last_name LIKE 'B%';
+---- 성이 "B"로 시작하는 모든 교사
+SELECT 'Teacher' AS role, t.first_name, t.last_name
+FROM teacher t
+WHERE t.last_name LIKE 'B%';
